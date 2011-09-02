@@ -1,77 +1,212 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset='utf-8'>
-
-  <title>Rootbuzz/shpaml @ GitHub</title>
-
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <style type="text/css">
     body {
-      margin-top: 1.0em;
-      background-color: #e6c9a5;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
+      font-size: 14px;
+      line-height: 22px;
+      font-family: Helvetica Neue, Helvetica, Arial;
+      background: #eee;
     }
-    #container {
-      margin: 0 auto;
-      width: 700px;
+    div#sidebar {
+      background: #f3f3f3;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      width: 220px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 15px 0 30px 20px;
+      border-right: 1px solid #fff;
+      box-shadow: 0 0 20px #ccc; -webkit-box-shadow: 0 0 20px #ccc; -moz-box-shadow: 0 0 20px #ccc;
     }
-    h1 { font-size: 3.8em; color: #19365a; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #19365a; }
-    h3 { text-align: center; color: #19365a; }
-    a { color: #19365a; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
+    a.h2, a.h2:visited {
+      text-decoration: none;
+      display: block;
+      color: black;
+      font-weight: bold;
+      margin-top: 15px;
+      padding-left: 10px;
+    }
+    a.h2:hover {
+      text-decoration: underline;
+    }
+    a.h3 {
+      display: block;
+      font-size: 11px;
+      line-height: 14px;
+      margin: 5px 0 0 0px;
+      padding-left: 20px;
+      list-style-type: none;
+      font-family: Lucida Grande;
+      text-decoration: none;
+      color: black;
+    }
+    a.h3:hover {
+      text-decoration: underline;
+    }
+    div.container {
+      position: relative;
+      width: 550px;
+      margin: 40px 0 50px 300px;
+    }
+    p, div.container ul {
+      margin: 20px 0;
+      width: 550px;
+    }
+    div.container ul {
+      list-style: circle;
+      font-size: 12px;
+      padding-left: 15px;
+    }
+    a, a:visited {
+      color: #444;
+    }
+    a:active, a:hover {
+      color: #000;
+    }
+    a img {
+      border: 0;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      padding-top: 20px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+    table {
+      margin: 15px 0 0; padding: 0;
+    }
+    tr, td {
+      margin: 0; padding: 0;
+    }
+    td {
+      padding: 0px 15px 5px 0;
+    }
+    code, pre, tt {
+      font-family: Monaco, Consolas, "Lucida Console", monospace;
+      font-size: 12px;
+      line-height: 18px;
+      font-style: normal;
+    }
+    tt {
+      padding: 0px 3px;
+      background: #fff;
+      border: 1px solid #ddd;
+      zoom: 1;
+    }
+    code {
+      border: 1px solid #ccc;
+      background: #fff;
+      padding: 0 3px;
+      zoom: 1;
+    }
+    pre code{
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
+    pre {
+      font-size: 12px;
+      padding: 2px 0 2px 15px;
+      border-left: 4px solid #bbb;
+      margin: 0px 0 30px;
+    }
+    .highlight {
+      background: #fff;
+      border-style: solid;
+      border-width: 0 0 0 5px;
+      border-color: #999;
+    }
   </style>
+  <title>README</title>
 </head>
-
 <body>
-  <a href="http://github.com/Rootbuzz/shpaml"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
-  <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/Rootbuzz/shpaml/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/Rootbuzz/shpaml/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/Rootbuzz/shpaml">shpaml</a>
-      <span class="small">by <a href="http://github.com/Rootbuzz">Rootbuzz</a></span></h1>
-
-    <div class="description">
-      Load shpaml (haml-like html alternative) templates in django seamlessly. Should work fine extending normal HTML templates and being extended by them.
-    </div>
-
-    <h2>Authors</h2>
-<p>Ivan Schmidt-Vitale (ISVitale@gmail.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p>Rootbuzz (tom@rootbuzz.com)<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/Rootbuzz/shpaml/zipball/master">zip</a> or
-      <a href="http://github.com/Rootbuzz/shpaml/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/Rootbuzz/shpaml</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/Rootbuzz/shpaml">Rootbuzz/shpaml</a>
-    </div>
-
+  <div id="sidebar" class="interface">
+    <a href="#Installation" class="h2">Installation</a>
+<a href="#Use" class="h2">Use</a>
+<a href="#Template-Loaders" class="h3">Template Loaders</a>
+<a href="#Setup" class="h3">Setup</a>
+<a href="#How-Templates-Are-Located" class="h3">How Templates Are Located</a>
   </div>
+  <div class="container">
+    <p>The django shpaml template loader uses the official python shpaml implementation
+which can be found at http://shpaml.webfactional.com/ </p>
+<p><strong>Note</strong>: the shpaml implementation from the above link is included for your convenience</p>
+<h2 id="Installation">Installation</h2>
+<p>pip install django-shpaml-template-loader</p>
+<ul>
+<li>OR -</li>
+</ul>
+<p>Copy the "shpaml_loader" directory into your python path or run <code>python
+setup.py install</code>.</p>
+<ul>
+<li>OR -</li>
+</ul>
+<p>pip install django-shpaml-template-loader</p>
+<h2 id="Use">Use</h2>
+<p>The loader wraps existing django template loaders, so any django template loader
+can be used to load shpaml templates.</p>
+<p>Shpaml templates <em>must</em> use the file extension *.shpaml</p>
+<h3 id="Template-Loaders">Template Loaders</h3>
+<p>I am using filesystem, eggs, and app_directories for examples here
+but you can use any template loader provided by django</p>
+<p>FOR DJANGO 1.2+
+  - shpaml_loader.filesystem
+  - shpaml_loader.eggs
+  - shpaml_loader.app_directories</p>
+<p>FOR DJANGO 1.1 and earlier:
+  - shpaml_loader.filesystem_load_template_source
+  - shpaml_loader.eggs_load_template_source
+  - shpaml_loader.app_directories_load_template_source</p>
+<h3 id="Setup">Setup</h3>
+<p>Pick one of the template loaders and add it to your TEMPLATE_LOADERS
+setting in the settings.py file like so:</p>
+<pre><code>TEMPLATE_LOADERS = (
+    # Using the django 1.2+ method in this example
+    'shpaml_loader.filesystem',
+        ...
+)
+</code></pre>
+<p>The shpaml loader <strong>must be first</strong> or else the django loaders will take 
+over.</p>
+<p>In django 1.2 I've found that django template caching can yield some 
+pretty nice <strong>performance gains</strong>, but it is inconvenien for development 
+(because you have to keep clearing the cache).</p>
+<p>Here is my reccommended approach:</p>
+<pre><code>TEMPLATE_LOADERS = (
+    # whatever shpaml loader you want
+    'shpaml_loader.filesystem',
+        ...other template loaders
+)
 
-  
+if not DEBUG:
+    TEMPLATE_LOADERS = (
+        ('django.template.loaders.cached.Loader', TEMPLATE_LOADERS),
+    )
+</code></pre>
+<h3 id="How-Templates-Are-Located">How Templates Are Located</h3>
+<p>There is a shpaml template loader for each built-in django template
+loader. The templates are located using the django template loader
+but pre-processed to convert the shpaml markup to HTML before being
+returned.</p>
+<p>Templates are determined to be shpaml by file extension, so they have to
+be *.shpaml files or else they will not be processed.</p>
+  </div>
+  <script src="http://code.jquery.com/jquery-1.6.js"></script>
+  <script src="http://imakewebthings.github.com/jquery-waypoints/waypoints.min.js"></script>
+  <script>
+    $(function() {
+      console.log('document ready');
+      $("h2, h3", ".container").each(function() {
+        var $this = $(this);
+        $this.waypoint(function() {
+          $('#sidebar a').removeClass('highlight');
+          $("#sidebar a[href=#" + $this.attr('id') + "]").toggleClass('highlight');
+        });
+      });
+    });
+  </script>
 </body>
 </html>
