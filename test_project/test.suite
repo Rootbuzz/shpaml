@@ -1,0 +1,462 @@
+=== indent
+
+---
+
+
+=== indent
+x
+---
+x
+
+=== indent
+x
+    yo
+---
+x
+    yo
+/x
+
+=== indent
+foo
+    yo
+---
+foo
+    yo
+/foo
+
+=== indent
+foo
+    yo
+x
+    bar
+---
+foo
+    yo
+/foo
+x
+    bar
+/x
+
+=== indent
+foo
+    one
+    two
+x
+    bar
+---
+foo
+    one
+    two
+/foo
+x
+    bar
+/x
+
+=== indent
+foo
+    one
+    two
+
+    three
+
+x
+    bar
+---
+foo
+    one
+    two
+
+    three
+/foo
+
+x
+    bar
+/x
+
+=== indent
+x
+---
+. x
+
+=== indent
+foo
+    x
+---
+foo
+    . x
+/foo
+
+=== indent
+foo
+    PASS
+---
+foo
+/foo
+
+=== indent
+flush_left
+    || yo
+    ||
+---
+flush_left
+yo
+
+/flush_left
+
+=== indent
+foo
+    bar
+    baz
+
+x
+    PASS
+---
+foo
+    bar
+    baz
+/foo
+
+x
+/x
+
+=== indent
+foo
+    bar
+        baz
+  yo
+---
+foo
+    bar
+        baz
+    /bar
+  yo
+/foo
+
+=== shpaml
+.foo | stuff
+---
+<div class="foo">stuff</div>
+
+=== shpaml
+.foo ||
+---
+<div class="foo"></div>
+
+=== shpaml
+p#foo | stuff
+---
+<p id="foo">stuff</p>
+
+=== shpaml
+#foo | stuff
+---
+<div id="foo">stuff</div>
+
+=== shpaml
+b > #foo | stuff
+---
+<b><div id="foo">stuff</div></b>
+
+=== shpaml
+b > #foo > i | stuff
+---
+<b><div id="foo"><i>stuff</i></div></b>
+
+=== shpaml
+
+---
+
+
+=== shpaml
+| {{ foo }}
+---
+{{ foo }}
+
+=== shpaml
+b | foo
+---
+<b>foo</b>
+
+=== shpaml
+p.foo | bar
+---
+<p class="foo">bar</p>
+
+=== shpaml
+span class="foo" > b | foo
+---
+<span class="foo"><b>foo</b></span>
+
+=== shpaml
+> input
+---
+<input>
+
+=== shpaml
+> br
+---
+<br>
+
+=== shpaml
+> br
+---
+<br>
+
+=== shpaml
+p
+    bar
+        baz
+
+    yo
+
+x
+    foo
+---
+<p>
+    <bar>
+        baz
+    </bar>
+
+    yo
+</p>
+
+<x>
+    foo
+</x>
+
+=== shpaml
+p
+    foo
+---
+<p>
+    foo
+</p>
+
+=== shpaml
+pre
+    || This is some preformated text.
+    || and this is some more.
+    ||    this is indented
+    || this is not.
+    ||
+    || Empty line above with no space at the ends work too.
+---
+<pre>
+This is some preformated text.
+and this is some more.
+   this is indented
+this is not.
+
+Empty line above with no space at the ends work too.
+</pre>
+
+=== shpaml
+p
+    | foo
+---
+<p>
+    foo
+</p>
+
+=== shpaml
+p.foo
+    | bar
+---
+<p class="foo">
+    bar
+</p>
+
+=== shpaml
+.foo.bar#div1
+    | bar
+---
+<div class="foo bar" id="div1">
+    bar
+</div>
+
+=== shpaml
+li | banana | apple
+---
+<li>banana | apple</li>
+
+=== shpaml
+<p>
+    <b>hello</b>
+    <br>
+</p>
+---
+<p>
+    <b>hello</b>
+    <br>
+</p>
+
+=== shpaml
+i > b | foo
+---
+<i><b>foo</b></i>
+
+=== shpaml
+> br
+---
+<br>
+
+=== shpaml
+> img.small#first src="image.png"
+---
+<img src="image.png" class="small" id="first">
+
+=== shpaml
+
+---
+
+
+=== shpaml
+i | <b>foo</b>
+---
+<i><b>foo</b></i>
+
+=== shpaml
+b | foo
+---
+<b>foo</b>
+
+=== shpaml
+::comment
+  Comments get ignored
+stuff
+---
+stuff
+
+=== shpaml
+p#foo.c1 | stuff
+---
+<p class="c1" id="foo">stuff</p>
+
+=== shpaml
+p#foo.c1.c2.c3 | stuff
+---
+<p class="c1 c2 c3" id="foo">stuff</p>
+
+=== shpaml
+p.c1#foo.c2.c3 | stuff
+---
+<p class="c1 c2 c3" id="foo">stuff</p>
+
+=== shpaml
+p.c1.c2.c3#foo | stuff
+---
+<p class="c1 c2 c3" id="foo">stuff</p>
+
+=== shpaml
+my..tag.c1.my..class.c3#my..id | stuff
+---
+<my.tag class="c1 my.class c3" id="my.id">stuff</my.tag>
+
+=== shpaml
+%foo
+---
+{% foo %}
+
+=== shpaml
+.foo |= bar
+---
+<div class="foo">{{ bar }}</div>
+
+=== shpaml
+.foo |% bar
+---
+<div class="foo">{% bar %}</div>
+
+=== shpaml
+.foo
+	%bar
+---
+<div class="foo">
+	{% bar %}
+</div>
+
+=== shpaml
+.foo
+	=bar
+---
+<div class="foo">
+	{{ bar }}
+</div>
+
+=== shpaml
+%foo
+	bar
+---
+{% foo %}
+	bar
+{% endfoo %}
+
+=== shpaml
+script
+  | let this pass
+  |  through unmolested
+---
+<script>
+  let this pass
+   through unmolested
+</script>
+
+=== shpaml
+script VERBATIM
+  function () {
+    var i;
+  }
+---
+<script>
+  function () {
+    var i;
+  }
+</script>
+
+=== shpaml
+style type=text/css VERBATIM
+  foo {
+    background-color: red
+  }
+---
+<style type="text/css">
+  foo {
+    background-color: red
+  }
+</style>
+
+=== shpaml
+p class=foo style="color: red" other="{{ foo }}" | stuff
+---
+<p class="foo" style="color: red" other="{{ foo }}">stuff</p>
+
+=== shpaml
+p class=foo style='color: red' other="{{ foo }}" | stuff
+---
+<p class="foo" style='color: red' other="{{ foo }}">stuff</p>
+
+=== shpaml
+p atr1=hello atr2='how' atr3="are" atr4=you | stuff
+---
+<p atr1="hello" atr2='how' atr3="are" atr4="you">stuff</p>
+
+=== shpaml
+> meta http-equiv='content-type' content='text/html;charset=utf-8'
+---
+<meta http-equiv='content-type' content='text/html;charset=utf-8'>
+
+=== shpaml
+> meta http-equiv=content-type content=text/html;charset=utf-8
+---
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+
+=== shpaml
+%baz ||
+---
+{% baz %}{% endbaz %}
+
+=== shpaml
+%block bar ||
+---
+{% block bar %}{% endblock %}
+
