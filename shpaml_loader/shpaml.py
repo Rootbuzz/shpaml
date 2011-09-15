@@ -47,7 +47,7 @@ def INDENT(m):
         prefix = ''
     return prefix, line
 
-@syntax('^([<{]\S.*)')
+@syntax('^([<{]\(\)\S.*)')
 def RAW_HTML(m):
     return m.group(1).rstrip()
 
