@@ -12,7 +12,7 @@ from setuptools import setup
 
 setup(
     name='django-shpaml-template-loader',
-    version='0.2.1',
+    version='0.2.2',
     author='Jim Robert',
     description=('A Django template loader for loading and converting '
                  'SHPAML markup to HTML'),
