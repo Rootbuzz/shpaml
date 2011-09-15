@@ -4,6 +4,7 @@ __version__ = '1.00b'
 
 def convert_text(in_body):
     '''
+
     You can call convert_text directly to convert shpaml markup
     to HTML markup.
     '''
@@ -47,7 +48,7 @@ def INDENT(m):
         prefix = ''
     return prefix, line
 
-@syntax('^([<{]\(\)\S.*)')
+@syntax('^([<{\(\)]\S.*)')
 def RAW_HTML(m):
     return m.group(1).rstrip()
 
