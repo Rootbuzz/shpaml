@@ -1,3 +1,5 @@
 *.pyc
 .project
 .pydevproject
+/dist/
+/django_shpaml_template_loader.egg-info/
