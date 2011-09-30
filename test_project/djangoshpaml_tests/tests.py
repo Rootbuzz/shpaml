@@ -73,13 +73,26 @@ def run_suite(suite_fn):
             test.append(line)
     run_test(test_type, test)
 
+        
+class ShpamlParserTests(TestCase):
+
+    def setUp(self):
+        pass
+    
+    def test_parse_tree(self):
+        pass
+    
+    def test_invalid_indentation(self):
+        pass
+        
+    def test_line_numbers(self):
+        pass
+    
 
 class ShpamlTests(TestCase):
 
     def setUp(self):
         pass
     
-    
     def test_shpaml(self):
         run_suite(join(settings.PROJECT_ROOT, 'test.suite'))
-
