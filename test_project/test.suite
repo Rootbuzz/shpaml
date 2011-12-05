@@ -456,6 +456,11 @@ p atr1=hello atr2='how' atr3="are" atr4=you | stuff
 {% baz %}{% endbaz %}
 
 === shpaml
+span.this-year |% now "Y"
+---
+<span class="this-year">{% now "Y" %}</span>
+
+=== shpaml
 %block bar ||
 ---
 {% block bar %}{% endblock %}

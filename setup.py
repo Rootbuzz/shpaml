@@ -11,15 +11,15 @@ convenience.
 from setuptools import setup
 
 setup(
-    name='django-shpaml-template-loader',
-    version='0.2.2',
-    author='Jim Robert',
+    name='django-shpaml',
+    version='1.0.0',
+    author='James Robert',
     description=('A Django template loader for loading and converting '
                  'SHPAML markup to HTML'),
     license='BSD',
     keywords='django shpaml',
-    url='http://bitbucket.org/jiaaro/django-shpaml-template-loader/',
-    packages=['shpaml_loader'],
+    url='http://shpaml.com',
+    packages=['shpaml'],
     long_description=__doc__,
     classifiers=[
         'License :: OSI Approved :: BSD License',

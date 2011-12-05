@@ -5,7 +5,7 @@ import sys
 from django.conf import settings
 from django.test import TestCase
 
-from shpaml_loader import shpaml
+from shpaml import shpaml
 
 write = sys.stdout.write
 

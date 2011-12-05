@@ -19,7 +19,7 @@ DATABASES = {
 }
 
 TEMPLATE_LOADERS = (
-    'shpaml_loader.filesystem',
+    'shpaml.filesystem',
 )
 
 TEMPLATE_DIRS = (
@@ -45,6 +45,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     
-    'shpaml_loader',
+    'shpaml',
     'djangoshpaml_tests',
 )

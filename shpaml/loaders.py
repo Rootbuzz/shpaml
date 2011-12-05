@@ -1,3 +1,8 @@
+"""
+This file is deprecated, but retained for backwards compatibility.
+
+The primary template loader is in loader.py
+"""
 from django.template import TemplateDoesNotExist
 
 import shpaml
