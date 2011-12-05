@@ -129,37 +129,58 @@
 <a href="#Template-Loaders" class="h3">Template Loaders</a>
 <a href="#Setup" class="h3">Setup</a>
 <a href="#How-Templates-Are-Located" class="h3">How Templates Are Located</a>
+<a href="#Shpaml" class="h2">Shpaml</a>
+<a href="#Use-indentation-for-block-tags" class="h3">Use indentation for block tags</a>
+<a href="#Use-pipes-for-inline-content" class="h3">Use pipes for inline content</a>
+<a href="#Use-pipes-for-indented-content" class="h3">Use pipes for indented content</a>
+<a href="#Use-HTML-as-needed" class="h3">Use HTML as needed</a>
+<a href="#Use-dot-for-class" class="h3">Use dot for class=...</a>
+<a href="#Use-pound-for-id" class="h3">Use pound for id=...</a>
+<a href="#Div-can-be-implied" class="h3">Div can be implied</a>
+<a href="#Comments" class="h3">Comments</a>
+<a href="#Use-gt-for-self-closing-tags" class="h3">Use &gt; for self-closing tags</a>
+<a href="#Empty-Tags" class="h3">Empty Tags</a>
+<a href="#Disabling-Shpaml-within-a-block-inline-javascript-or-css" class="h3">Disabling Shpaml within a block (inline javascript or css)</a>
+<a href="#Django-Template-Tags" class="h3">Django Template Tags</a>
+<a href="#Django-Variable-Insertion" class="h3">Django Variable Insertion</a>
+<a href="#Other-shortcuts" class="h3">Other shortcuts</a>
   </div>
   <div class="container">
-    <p>The django shpaml template loader uses the official python shpaml implementation
-which can be found at http://shpaml.webfactional.com/ </p>
-<p><strong>Note</strong>: the shpaml implementation from the above link is included for your convenience</p>
-<h2 id="Installation">Installation</h2>
-<p>pip install django-shpaml-template-loader</p>
+    <h2 id="Installation">Installation</h2>
+<p>pip install django-shpaml</p>
 <ul>
 <li>OR -</li>
 </ul>
-<p>Copy the "shpaml_loader" directory into your python path or run <code>python
+<p>Copy the "shpaml" directory into your python path or run <code>python
 setup.py install</code>.</p>
-<ul>
-<li>OR -</li>
-</ul>
-<p>pip install django-shpaml-template-loader</p>
 <h2 id="Use">Use</h2>
 <p>The loader wraps existing django template loaders, so any django template loader
 can be used to load shpaml templates.</p>
 <p>Shpaml templates <em>must</em> use the file extension *.shpaml</p>
 <h3 id="Template-Loaders">Template Loaders</h3>
-<p>I am using filesystem, eggs, and app_directories for examples here
+<p>I am using filesystem and app_directories for examples here
 but you can use any template loader provided by django</p>
-<p>FOR DJANGO 1.2+
-  - shpaml_loader.filesystem
-  - shpaml_loader.eggs
-  - shpaml_loader.app_directories</p>
-<p>FOR DJANGO 1.1 and earlier:
-  - shpaml_loader.filesystem_load_template_source
-  - shpaml_loader.eggs_load_template_source
-  - shpaml_loader.app_directories_load_template_source</p>
+<p>FOR DJANGO 1.2+</p>
+<p>Shapml Loader wraps other loaders (like the caching loader)</p>
+<pre><code>TEMPLATE_LOADERS = (
+    ('shpaml.Loader',
+        ('django.template.loaders.filesystem.Loader',)
+    ),
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+)
+</code></pre>
+<p>if you want Caching as well (recommended)...</p>
+<pre><code>TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader',
+        ('shpaml.Loader',
+            ('django.template.loaders.filesystem.Loader',)
+        ),
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )
+)
+</code></pre>
 <h3 id="Setup">Setup</h3>
 <p>Pick one of the template loaders and add it to your TEMPLATE_LOADERS
 setting in the settings.py file like so:</p>
@@ -171,14 +192,16 @@ setting in the settings.py file like so:</p>
 </code></pre>
 <p>The shpaml loader <strong>must be first</strong> or else the django loaders will take 
 over.</p>
-<p>In django 1.2 I've found that django template caching can yield some 
-pretty nice <strong>performance gains</strong>, but it is inconvenien for development 
+<p>In django template caching can yield some 
+pretty nice <strong>performance gains</strong>, but it is inconvenient for development 
 (because you have to keep clearing the cache).</p>
 <p>Here is my reccommended approach:</p>
 <pre><code>TEMPLATE_LOADERS = (
-    # whatever shpaml loader you want
-    'shpaml_loader.filesystem',
-        ...other template loaders
+    ('shpaml.Loader',
+        ('django.template.loaders.filesystem.Loader',)
+    ),
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
 )
 
 if not DEBUG:
@@ -193,6 +216,385 @@ but pre-processed to convert the shpaml markup to HTML before being
 returned.</p>
 <p>Templates are determined to be shpaml by file extension, so they have to
 be *.shpaml files or else they will not be processed.</p>
+<h2 id="Shpaml">Shpaml</h2>
+<p>Here is a quick and dirty shpaml reference...</p>
+<h3 id="Use-indentation-for-block-tags">Use indentation for block tags</h3>
+<p>The goal of this tutorial is to take you through one SHPAML concept at a time. 
+At each step you can edit the SHPAML to create HTML. The goal is to learn by 
+reading and writing at the same time.</p>
+<p>The most important concept in SHPAML is that you can use indentation to indicate
+where HTML blocks should end with a close tag. Try adding a third item to the 
+list to see it in action.</p>
+<p>We will mostly use two spaces for indentation in this tutorial, but you can use
+more if you like.</p>
+<pre><code>ul
+  li
+    This it the first item.
+  li
+    This is the second item.
+
+div
+    The number of spaces that you indent
+    gets preserved.
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;ul&gt;
+  &lt;li&gt;
+    This it the first item.
+  &lt;/li&gt;
+  &lt;li&gt;
+    This is the second item.
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div&gt;
+    The number of spaces that you indent
+    gets preserved.
+&lt;/div&gt;
+</code></pre>
+<h3 id="Use-pipes-for-inline-content">Use pipes for inline content</h3>
+<p>For HTML one-liners you can use the pipe character followed by a space to 
+separate markup from content.</p>
+<p>Try adding an item to this list.</p>
+<pre><code>ol
+  li | apple
+  li | banana
+  li | orange
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;ol&gt;
+  &lt;li&gt;apple&lt;/li&gt;
+  &lt;li&gt;banana&lt;/li&gt;
+  &lt;li&gt;orange&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+<h3 id="Use-pipes-for-indented-content">Use pipes for indented content</h3>
+<p>When authoring SHPAML, you use indentation and certain punctuation to identify 
+structure. This leads to terseness at one level, but what if you want your 
+content to include indentation and structure?</p>
+<p>The solution is to prefix content lines with the pipe character ('|') followed 
+by a space. Try removing the second pipe to see the problem, and then reinsert 
+it to see the solution.</p>
+<pre><code>pre
+  | Without pipes to show a block of content,
+  |  SHPAML would be confused
+  |    by this strangely indented
+  |       text, or by me using | and
+  |          &lt; symbols.
+
+pre
+  || You can also dedent text
+  ||   with double pipes
+
+p
+  For most text, advanced users can omit the
+  pipes for maximum terseness, and SHPAML will
+  just do the right thing.  It detects that lines
+  have no indentation beneath them and treats them
+  as content.
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;pre&gt;
+  Without pipes to show a block of content,
+   SHPAML would be confused
+     by this strangely indented
+        text, or by me using | and
+           &lt; symbols.
+&lt;/pre&gt;
+
+&lt;pre&gt;
+You can also dedent text
+  with double pipes
+&lt;/pre&gt;
+
+&lt;p&gt;
+  For most text, advanced users can omit the
+  pipes for maximum terseness, and SHPAML will
+  just do the right thing.  It detects that lines
+  have no indentation beneath them and treats them
+  as content.
+&lt;/p&gt;
+</code></pre>
+<h3 id="Use-HTML-as-needed">Use HTML as needed</h3>
+<p>SHPAML does not force you to abandon HTML.</p>
+<p>Most well-formatted HTML passes through the preprocessor untouched. This can 
+be helpful when dealing with legacy code or inline tags.</p>
+<pre><code>&lt;head&gt;
+  &lt;meta http-equiv="Content-Language" content="en-us" /&gt;
+&lt;/head&gt;
+
+body
+  &lt;div class="legacy"&gt;
+    &lt;ol&gt;
+      &lt;li&gt;close tags&lt;/li&gt;
+      &lt;li&gt;lots of angle brackets&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/div&gt;
+
+  div class="mixed"
+    p
+      Use &lt;b&gt;indentation&lt;/b&gt; to denote
+      structure!
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;head&gt;
+  &lt;meta http-equiv="Content-Language" content="en-us" /&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div class="legacy"&gt;
+    &lt;ol&gt;
+      &lt;li&gt;close tags&lt;/li&gt;
+      &lt;li&gt;lots of angle brackets&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/div&gt;
+
+  &lt;div class="mixed"&gt;
+    &lt;p&gt;
+      Use &lt;b&gt;indentation&lt;/b&gt; to denote
+      structure!
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="Use-dot-for-class">Use dot for class=...</h3>
+<p>You can abbreviate 'div class="free_text"' as "div.free_text" as shown in the 
+example.</p>
+<p>Although it reduces typing for the HTML author, the real goal here is to make 
+the HTML look more like CSS (for your designer) and jQuery too.</p>
+<p>Try modifying the ul tag to emulate the same syntax as the div.</p>
+<pre><code>div.free_text
+  This is some text.
+
+ul class="list_of_names"
+  li | Alice
+  li | Bob
+  li | Cindy
+
+div.class1.class2
+  You can have multiple classes.
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;div class="free_text"&gt;
+  This is some text.
+&lt;/div&gt;
+
+&lt;ul class="list_of_names"&gt;
+  &lt;li&gt;Alice&lt;/li&gt;
+  &lt;li&gt;Bob&lt;/li&gt;
+  &lt;li&gt;Cindy&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class="class1 class2"&gt;
+  You can have multiple classes.
+&lt;/div&gt;
+</code></pre>
+<h3 id="Use-pound-for-id">Use pound for id=...</h3>
+<p>You can abbreviate 'p class="free_text" id="greeting"' as "p.free_text#greeting" 
+as shown in the example.</p>
+<p>Try adding an id to the ul tag.</p>
+<pre><code>p.free_text#greeting
+  Hello World!
+
+ul.list_of_names
+  li | Alice
+  li | Bob
+  li | Cindy
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;p class="free_text" id="greeting"&gt;
+  Hello World!
+&lt;/p&gt;
+
+&lt;ul class="list_of_names"&gt;
+  &lt;li&gt;Alice&lt;/li&gt;
+  &lt;li&gt;Bob&lt;/li&gt;
+  &lt;li&gt;Cindy&lt;/li&gt;
+&lt;/ul&gt;
+</code></pre>
+<h3 id="Div-can-be-implied">Div can be implied</h3>
+<p>Any tag starting with "." is implied to be a div tag. The div shortcut is a 
+feature borrowed from haml, as divs are used very commonly.</p>
+<p>Try enclosing "Goodbye" inside a div tag using the implied-div syntax.</p>
+<pre><code>.free_text.salutation#hello
+  Hello World!
+
+#how_are_you.free_text.salutation
+ How are you?
+
+Goodbye.
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;div class="free_text salutation" id="hello"&gt;
+  Hello World!
+&lt;/div&gt;
+
+&lt;div class="free_text salutation" id="how_are_you"&gt;
+ How are you?
+&lt;/div&gt;
+
+Goodbye.
+</code></pre>
+<h3 id="Comments">Comments</h3>
+<p>You can use the ::comment directive to include comments in your shpaml. 
+Comments do not get written to the output.</p>
+<pre><code>::comment
+  This text is for your eyes only.
+.main
+  This text passes through.
+</code></pre>
+<h4>Output</h4>
+<div class="main">
+  This text passes through.
+</div>
+
+<h3 id="Use-gt-for-self-closing-tags">Use &gt; for self-closing tags</h3>
+<p>You can use '&gt;' syntax for self-closing tags like "br" and "hr," or you can 
+just use explicit HTML.</p>
+<pre><code>&gt; br
+&lt;br /&gt;
+&lt;br&gt;
+&lt;input type="text" class="widget" /&gt;
+&gt; input.widget type="text"
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;br /&gt;
+&lt;br /&gt;
+&lt;br&gt;
+&lt;input type="text" class="widget" /&gt;
+&lt;input type="text" class="widget" /&gt;
+</code></pre>
+<h3 id="Empty-Tags">Empty Tags</h3>
+<p>Sometimes you want an empty tag with no whitespace. Use the double pipe (||)</p>
+<pre><code>script type="text/javascript" ||
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;script type="text/javascript"&gt;&lt;/script&gt;
+</code></pre>
+<h3 id="Disabling-Shpaml-within-a-block-inline-javascript-or-css">Disabling Shpaml within a block (inline javascript or css)</h3>
+<p>Sometimes you want to disable shpaml so you can inline some js or css in a 
+page. You can use the VERBATIM tag to tell shpaml not to process the contents
+of a tag.</p>
+<p>VERBATIM must be all caps, and it must be the last thing in the line</p>
+<pre><code>script VERBATIM type="text/javascript"
+    // this is no good...
+    $("div")
+        .hide()
+        .fadeIn(function() {
+            // uh oh
+        });
+
+script type="text/javascript" VERBATIM
+    // this is the way to do it :)
+    $("div")
+        .hide()
+        .fadeIn(function() {
+            // uh oh
+        });
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;script VERBATIM type="text/javascript"&gt;
+    // this is no good...
+    $("div")
+        .hide()
+        &lt;div class="fadeIn(function() {"&gt;
+            // uh oh
+        &lt;/div&gt;
+        });
+&lt;/script&gt;
+
+&lt;script type="text/javascript"&gt;
+    // this is the way to do it :)
+    $("div")
+        .hide()
+        .fadeIn(function() {
+            // uh oh
+        });
+&lt;/script&gt;
+</code></pre>
+<h3 id="Django-Template-Tags">Django Template Tags</h3>
+<p>Lines starting with a percent sign (%) will be converted to django template 
+tags.</p>
+<p>if the template tag as contents an "end" tag will be added, otherwise it will 
+be treated as having no end tag (double pipe syntax and PASS are supported as 
+well)</p>
+<p>you can also user the pipe percent (|%) operator for non-closing template tags
+similarly to the pipe operator...</p>
+<pre><code>%block content
+    this will get an "endblock" tag because it has contents
+
+    form action="."
+        the csrf token tag doesn't get a closing tag because it 
+        has no contents...
+        %csrf_token
+
+        {{ form.as_p }}
+
+        button type="reset" | Cancel
+        button type="submit" | Save
+
+ This is an empty block:
+ footer
+    &amp;copy; Me
+    span.current-time |% now "Y"
+
+    %block more_footer ||
+</code></pre>
+<h4>Output</h4>
+<pre><code>{% block content %}
+    this will get an "endblock" tag because it has contents
+
+    &lt;form action="."&gt;
+        the csrf token tag doesn't get a closing tag because it 
+        has no contents...
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        &lt;button type="reset"&gt;Cancel&lt;/button&gt;
+        &lt;button type="submit"&gt;Save&lt;/button&gt;
+    &lt;/form&gt;
+{% endblock %}
+
+This is an empty block:
+&lt;footer&gt;
+    &amp;copy; Me
+    &lt;span class="current-year"&gt;{% now "Y" %}&lt;/span&gt;
+
+    {% block more_footer %}{% endblock %}
+&lt;/footer&gt;
+</code></pre>
+<h3 id="Django-Variable-Insertion">Django Variable Insertion</h3>
+<p>You can insert django variables using the equals sign (=). You can
+also use the pipe equals operator similarly to the pipe operator.</p>
+<pre><code>.profile-info
+    a href="{{ user.get_absolute_url }}" |= user.get_full_name
+    p.user-name
+        strong | username:
+        = user.username
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;div class="profile-info"&gt;
+    &lt;a href="{{ user.get_absolute_url }}"&gt;{{ user.get_full_name }}&lt;/a&gt;
+    &lt;p class="user-name"&gt;
+        &lt;strong&gt;username:&lt;/strong&gt;
+        {{ user.username }}
+    &lt;/p&gt;
+&lt;/div&gt;
+</code></pre>
+<h3 id="Other-shortcuts">Other shortcuts</h3>
+<p>You can leave quotes off attribute values when the name and value are single 
+words.</p>
+<p>You can also have multiple inline tags on the same line.</p>
+<pre><code>&gt; input type=text name=department value="Computer Science"
+
+.greeting &gt; strong &gt; p | Hello
+</code></pre>
+<h4>Output</h4>
+<pre><code>&lt;input type="text" name="department" value="Computer Science" /&gt;
+
+&lt;div class="greeting"&gt;&lt;strong&gt;&lt;p&gt;Hello&lt;/p&gt;&lt;/strong&gt;&lt;/div&gt;
+</code></pre>
   </div>
   <script src="http://code.jquery.com/jquery-1.6.js"></script>
   <script src="http://imakewebthings.github.com/jquery-waypoints/waypoints.min.js"></script>
