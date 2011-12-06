@@ -19,7 +19,15 @@ class Loader(BaseLoader):
         # Resolve loaders on demand to avoid circular imports
         if not self._cached_loaders:
             for loader in self._loaders:
-                self._cached_loaders.append(find_template_loader(loader))
+                loader = find_template_loader(loader)
+                
+                class InnerLoader(loader.__class__):
+                    is_usable = True
+                    def load_template_source(self, *args, **kwargs):
+                        src = super(InnerLoader, self).load_template_source(*args, **kwargs)
+                        return (shpaml.convert_text(src[0]), src[1])
+                
+                self._cached_loaders.append(InnerLoader())
         return self._cached_loaders
 
     def find_template(self, name, dirs=None):
@@ -49,5 +57,4 @@ class Loader(BaseLoader):
                 # of the actual template that does not exist.
                 return template, origin
         
-        template = shpaml.convert_text(template)
-        return template
+        return template, None
