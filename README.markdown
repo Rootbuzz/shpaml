@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Rootbuzz/shpaml.png?branch=travis)](https://travis-ci.org/Rootbuzz/shpaml)
+
 ## Installation ##
 
 pip install django-shpaml
