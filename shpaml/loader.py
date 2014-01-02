@@ -3,7 +3,7 @@ Based on django's caching template loader.
 """
 
 import hashlib
-import shpaml
+from . import shpaml
 from django.template import TemplateDoesNotExist
 from django.template.loader import BaseLoader, get_template_from_string, find_template_loader, make_origin
 
