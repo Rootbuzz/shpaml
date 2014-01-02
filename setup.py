@@ -19,6 +19,9 @@ setup(
     license='BSD',
     keywords='django shpaml',
     url='http://shpaml.com',
+    install_requires=[
+        "django >= 1.2",
+    ],
     packages=['shpaml'],
     long_description=__doc__,
     classifiers=[
