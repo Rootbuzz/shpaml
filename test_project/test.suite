@@ -465,3 +465,22 @@ span.this-year |% now "Y"
 ---
 {% block bar %}{% endblock %}
 
+=== shpaml
+%block foo | bar
+---
+{% block foo %}bar{% endblock %}
+
+=== shpaml
+%block foo bar | baz wat?
+---
+{% block foo bar %}baz wat?{% endblock %}
+
+=== shpaml
+%block foo bar |= baz|wat:2
+---
+{% block foo bar %}{{ baz|wat:2 }}{% endblock %}
+
+=== shpaml
+%block foo bar |% now "Y"
+---
+{% block foo bar %}{% now "Y" %}{% endblock %}
