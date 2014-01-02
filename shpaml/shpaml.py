@@ -76,6 +76,23 @@ def DJANGO_VAR_ENCLOSING_TAG(m):
     text = "{{ %s }}" % text.strip()
     return enclose_tag(tag, text)
 
+@syntax('%(.*) \| (.*)')
+def TEXT_ENCLOSING_DJANGO_TAG(m):
+    tag, text = m.groups()
+    return enclose_django_tag(tag, text)
+    
+@syntax('%(.*) \|= (.*)')
+def DJANGO_VAR_ENCLOSING_DJANGO_TAG(m):
+    tag, text = m.groups()
+    text = "{{ %s }}" % text.strip()
+    return enclose_django_tag(tag, text)
+    
+@syntax('%(.*) \|% (.*)')
+def DJANGO_TAG_ENCLOSING_DJANGO_TAG(m):
+    tag, text = m.groups()
+    text = "{%% %s %%}" % text.strip()
+    return enclose_django_tag(tag, text)
+
 @syntax('%(.*) \|\|')
 def EMPTY_DJANGO_TAG(m):
     tag = m.groups()[0]
@@ -110,6 +127,9 @@ LINE_METHODS = [
         RAW_HTML,
         DJANGO_VAR,
         EMPTY_DJANGO_TAG,
+        TEXT_ENCLOSING_DJANGO_TAG,
+        DJANGO_TAG_ENCLOSING_DJANGO_TAG,
+        DJANGO_VAR_ENCLOSING_DJANGO_TAG,
         DJANGO_TAG,
         TEXT,
         OUTER_CLOSING_TAG,

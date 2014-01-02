@@ -7,7 +7,9 @@ from django.test import TestCase
 
 from shpaml import shpaml
 
-write = sys.stdout.write
+def write(*a, **kw):
+    sys.stdout.write(*a, **kw)
+    sys.stdout.flush()
 
 def assert_equals(expected_output, actual_output):
     if expected_output != actual_output:
