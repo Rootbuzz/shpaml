@@ -5,8 +5,8 @@ The primary template loader is in loader.py
 """
 from django.template import TemplateDoesNotExist
 
-import shpaml
-from utils import get_django_template_loaders
+from . import shpaml
+from .utils import get_django_template_loaders
 
 def get_shpaml_loader(loader):
     if hasattr(loader, 'Loader'):
