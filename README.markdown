@@ -448,13 +448,13 @@ well)
 you can also user the pipe percent (|%) operator for non-closing template tags
 similarly to the pipe operator...
 
-    %block content
+    % block content
         this will get an "endblock" tag because it has contents
         
         form action="."
             the csrf token tag doesn't get a closing tag because it 
             has no contents...
-            %csrf_token
+            % csrf_token
             
             {{ form.as_p }}
             
@@ -466,7 +466,7 @@ similarly to the pipe operator...
         &copy; Me
         span.current-time |% now "Y"
         
-        %block more_footer ||
+        % block more_footer ||
             
 #### Output
     

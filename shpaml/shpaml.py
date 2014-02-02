@@ -19,7 +19,7 @@ TAG_AND_REST = re.compile(r'((?:[^ \t\.#]|\.\.)+)(.*)')
 CLASS_OR_ID = re.compile(r'([.#])((?:[^ \t\.#]|\.\.)+)')
 COMMENT_SYNTAX = re.compile(r'^::comment$')
 VERBATIM_SYNTAX = re.compile('(.+) VERBATIM$')
-DJANGO_TAG_SYNTAX = re.compile(r'^%(.+)')
+DJANGO_TAG_SYNTAX = re.compile(r'^% *(.+)')
 
 DIV_SHORTCUT = re.compile(r'^(?:#|(?:\.(?!\.)))')
 
@@ -56,7 +56,7 @@ def RAW_HTML(m):
 def DJANGO_VAR(m):
     return "{{ %s }}" % m.group(1).rstrip()
 
-@syntax('%(.*)')
+@syntax('% *(.*)')
 def DJANGO_TAG(m):
     return "{%% %s %%}" % m.group(1).rstrip()
 
@@ -93,7 +93,7 @@ def DJANGO_TAG_ENCLOSING_DJANGO_TAG(m):
     text = "{%% %s %%}" % text.strip()
     return enclose_django_tag(tag, text)
 
-@syntax('%(.*) \|\|')
+@syntax('% *(.*) \|\|')
 def EMPTY_DJANGO_TAG(m):
     tag = m.groups()[0]
     return enclose_django_tag(tag, "")

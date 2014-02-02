@@ -358,6 +358,11 @@ my..tag.c1.my..class.c3#my..id | stuff
 {% foo %}
 
 === shpaml
+% foo
+---
+{% foo %}
+
+=== shpaml
 .foo |= bar
 ---
 <div class="foo">{{ bar }}</div>
@@ -369,7 +374,7 @@ my..tag.c1.my..class.c3#my..id | stuff
 
 === shpaml
 .foo
-	%bar
+	% bar
 ---
 <div class="foo">
 	{% bar %}
@@ -382,6 +387,14 @@ my..tag.c1.my..class.c3#my..id | stuff
 <div class="foo">
 	{{ bar }}
 </div>
+
+=== shpaml
+% foo
+	bar
+---
+{% foo %}
+	bar
+{% endfoo %}
 
 === shpaml
 %foo
@@ -451,6 +464,11 @@ p atr1=hello atr2='how' atr3="are" atr4=you | stuff
 <meta http-equiv="content-type" content="text/html;charset=utf-8">
 
 === shpaml
+% baz ||
+---
+{% baz %}{% endbaz %}
+
+=== shpaml
 %baz ||
 ---
 {% baz %}{% endbaz %}
@@ -474,6 +492,11 @@ span.this-year |% now "Y"
 %block foo bar | baz wat?
 ---
 {% block foo bar %}baz wat?{% endblock %}
+
+=== shpaml
+% block bar ||
+---
+{% block bar %}{% endblock %}
 
 === shpaml
 %block foo bar |= baz|wat:2
