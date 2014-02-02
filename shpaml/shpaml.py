@@ -19,7 +19,7 @@ TAG_AND_REST = re.compile(r'((?:[^ \t\.#]|\.\.)+)(.*)')
 CLASS_OR_ID = re.compile(r'([.#])((?:[^ \t\.#]|\.\.)+)')
 COMMENT_SYNTAX = re.compile(r'^::comment$')
 VERBATIM_SYNTAX = re.compile('(.+) VERBATIM$')
-DJANGO_TAG_SYNTAX = re.compile(r'^%(.+)')
+DJANGO_TAG_SYNTAX = re.compile(r'^%[ \t]*(.+)')
 
 DIV_SHORTCUT = re.compile(r'^(?:#|(?:\.(?!\.)))')
 
@@ -56,7 +56,7 @@ def RAW_HTML(m):
 def DJANGO_VAR(m):
     return "{{ %s }}" % m.group(1).rstrip()
 
-@syntax('%(.*)')
+@syntax('%[ \t]*(.*)')
 def DJANGO_TAG(m):
     return "{%% %s %%}" % m.group(1).rstrip()
 
@@ -80,20 +80,20 @@ def DJANGO_VAR_ENCLOSING_TAG(m):
 def TEXT_ENCLOSING_DJANGO_TAG(m):
     tag, text = m.groups()
     return enclose_django_tag(tag, text)
-    
+
 @syntax('%(.*) \|= (.*)')
 def DJANGO_VAR_ENCLOSING_DJANGO_TAG(m):
     tag, text = m.groups()
     text = "{{ %s }}" % text.strip()
     return enclose_django_tag(tag, text)
-    
+
 @syntax('%(.*) \|% (.*)')
 def DJANGO_TAG_ENCLOSING_DJANGO_TAG(m):
     tag, text = m.groups()
     text = "{%% %s %%}" % text.strip()
     return enclose_django_tag(tag, text)
 
-@syntax('%(.*) \|\|')
+@syntax('%[ \t]*(.*) \|\|')
 def EMPTY_DJANGO_TAG(m):
     tag = m.groups()[0]
     return enclose_django_tag(tag, "")
@@ -209,7 +209,7 @@ def convert_line(line):
         if m:
             return prefix + method(m)
 
-def apply_django_sugar(tag):      
+def apply_django_sugar(tag):
     start_tag = '{%% %s %%}' % tag
     end_tag = '{%% end%s %%}' % tag.split(" ")[0]
     return (start_tag, end_tag)
@@ -393,7 +393,7 @@ def indent_lines(lines,
 
     The remaining parameters are exactly the same as in the indent
     function:
-    
+
       * branch_method
       * leaf_method
       * pass_syntax
