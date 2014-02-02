@@ -374,6 +374,14 @@ my..tag.c1.my..class.c3#my..id | stuff
 
 === shpaml
 .foo
+	%bar
+---
+<div class="foo">
+	{% bar %}
+</div>
+
+=== shpaml
+.foo
 	% bar
 ---
 <div class="foo">
