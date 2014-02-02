@@ -319,7 +319,7 @@ Try adding an id to the ul tag.
     
 ### Div can be implied 
 
-Any tag starting with "." is implied to be a div tag. The div shortcut is a 
+Any tag starting with "." or "#" is implied to be a div tag. The div shortcut is a 
 feature borrowed from haml, as divs are used very commonly.
 
 Try enclosing "Goodbye" inside a div tag using the implied-div syntax.
