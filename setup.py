@@ -10,7 +10,7 @@ from setuptools import setup
 
 setup(
     name='django-shpaml',
-    version='1.2.0',
+    version='1.2.1',
     author='James Robert',
     author_email='shpaml@jiaaro.com',
     description=('A Django template loader for loading and converting '
