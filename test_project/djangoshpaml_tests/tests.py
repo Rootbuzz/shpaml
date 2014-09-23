@@ -5,8 +5,6 @@ import sys
 from django.conf import settings
 from django.test import TestCase
 
-from shpaml import shpaml
-
 def write(*a, **kw):
     sys.stdout.write(*a, **kw)
     sys.stdout.flush()
@@ -18,10 +16,12 @@ def assert_equals(expected_output, actual_output):
         raise Exception('values not equal')
 
 def assert_shpaml(expected_output, source):
+    from shpaml import shpaml
     actual_output = shpaml.convert_text(source).strip()
     assert_equals(expected_output.strip(), actual_output)
 
 def assert_indent(expected_output, source):
+    from shpaml import shpaml
     def dot(s):
         return '. ' + s
     if '. ' in expected_output:
