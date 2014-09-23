@@ -2,28 +2,27 @@ env:
   global:
     - DJANGO_SETTINGS_MODULE=test_project.settings
   matrix:
-    - DJANGO=1.2
-    - DJANGO=1.3
     - DJANGO=1.4
     - DJANGO=1.5
     - DJANGO=1.6
     - DJANGO=1.7
+    - DJANGO=dev
 matrix:
   exclude:
     - python: "3.2"
-      env: DJANGO=1.2
-    - python: "3.2"
-      env: DJANGO=1.3
-    - python: "3.2"
       env: DJANGO=1.4
     - python: "3.3"
-      env: DJANGO=1.2
-    - python: "3.3"
-      env: DJANGO=1.3
-    - python: "3.3"
       env: DJANGO=1.4
+    - python: "3.4"
+      env: DJANGO=1.4
+    - python: "3.4"
+      env: DJANGO=1.5
+    - python: "3.4"
+      env: DJANGO=1.6
     - python: "2.6"
       env: DJANGO=1.7
+    - python: "2.6"
+      env: DJANGO=dev
 install:
   - pip install django==${DJANGO}
   - pip install .
@@ -33,4 +32,5 @@ python:
   - "2.7"
   - "3.2"
   - "3.3"
+  - "3.4"
 script: python test_project/manage.py test djangoshpaml_tests
