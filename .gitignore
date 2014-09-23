@@ -4,5 +4,6 @@
 /dist/
 /django_shpaml_template_loader.egg-info/
 /django_shpaml.egg-info/
-
 /build/
+.idea
+.DS_Store
