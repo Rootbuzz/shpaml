@@ -7,4 +7,4 @@ try:
     locals().update(_loaders)
 
 except ImportError:
-  print("Couldn't import django, shpaml.convert_text() is available, django integrations are not")
+    print("Couldn't import django, shpaml.convert_text() is available, django integrations are not")
