@@ -5,6 +5,10 @@ env:
     - DJANGO=1.7
     - DJANGO=1.8
     - DJANGO=1.9
+matrix:
+  exclude:
+    - python: "3.5"
+      env: DJANGO=1.7
 install:
   - pip install django==${DJANGO}
   - pip install .
