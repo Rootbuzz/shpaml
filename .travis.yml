@@ -11,6 +11,6 @@ install:
 language: python
 python:
   - "2.7"
-  - "3.3"
   - "3.4"
+  - "3.5"
 script: python test_project/manage.py test djangoshpaml_tests
